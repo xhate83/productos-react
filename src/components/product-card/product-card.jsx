@@ -6,13 +6,16 @@ function ProductCard({ producto }) {
     ProductCard.propTypes = {
         producto: PropTypes.object.isRequired
     };
+
+  
+
   return (
     <div className="card bg-white p-4 rounded overflow-hidden" style={{maxHeight: '90vh'}}>
-    <img src={producto.image} alt={producto.title} className="card-img-top" style={{maxHeight: '40%', objectFit: 'contain'}} />
+    <img src={producto.images[0]} alt={producto.title} className="card-img-top" style={{maxHeight: '40%', objectFit: 'contain'}} />
     <div className="card-body d-flex flex-column justify-content-between">
       <div>
         <h5 className="card-title text-primary">{producto.title}</h5>
-        <span className="badge rounded-pill bg-warning text-dark">{producto.category}</span>
+        <span className="badge rounded-pill bg-warning text-dark">{producto.category.name}</span>
         <p className="card-text text-secondary">{producto.description}</p>
       </div>
       <div>

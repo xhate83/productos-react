@@ -1,17 +1,42 @@
 import { useState, useEffect } from 'react';
 import ProductCard from '../../components/product-card/product-card';
+import { toTitleCase } from '../utils/utils';
 
 function Recomendations() {
   const [productos, setProductos] = useState([]);
 
     useEffect(() => {
-        fetch('https://fakestoreapi.com/products')
+        fetch('https://fakestoreapi.com/products?limit=10')
         .then((res) => res.json())
         .then((productos) => {
-            console.log('Productos', productos)
-            setProductos(productos)
+            
+            const productosApiFake = productos.map((producto) => ({
+                ...producto,
+                images: [producto.image, producto.image, producto.image, producto.image, producto.image],
+                category: {
+                  id: producto.category,
+                  name: toTitleCase(producto.category),
+                  image: ['https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'],
+                }
+            }));
+            console.log('productosApiFake =>', productosApiFake);
+            setProductos(productosApiFake)
         });
     }, []);
+
+    useEffect(() => {
+      fetch('https://fakestoreapi.com/products/categories')
+      .then((res) => res.json())
+      .then((categorias) => {
+          
+          const categoriasApiFake = categorias.map((categoria) => ({
+              id: categoria,
+              name: toTitleCase(categoria),
+              image: ['https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'],
+          }));
+          console.log('categoriasApiFake =>', categoriasApiFake);
+      });
+  }, []);
 
 
   return (
